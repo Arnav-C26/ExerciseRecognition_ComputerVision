@@ -3,5 +3,4 @@ transformers
 opencv-python
 pandas
 scikit-learn
-umap-learn
 matplotlib

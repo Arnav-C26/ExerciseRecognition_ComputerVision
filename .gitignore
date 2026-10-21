@@ -1,3 +1,5 @@
 myvenv/
-data/RepCount/
+data/LLSP/
+data/embeddings/
+data/metadata.json
 *.npy
