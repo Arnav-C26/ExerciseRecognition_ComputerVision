@@ -49,9 +49,28 @@ Each sample is a video from a standard camera. There are no sensors used in the 
 Michael and Arnav contributed equally to the authorship of this section, meeting in person to both read the paper and brainstorm how to structure the contents of the section. The ideas represented from this section are collective thoughts from both Michael and Arnav.  Michael was responsible for the writing of this section.
 
 
-
-
 # Part 3: First Update
+
+## Approach 2: How to Run
+**Run all commands from the repository root!**
+
+```bash
+pip install -r requirements.txt
+```
+
+**Sample video**:
+```bash
+python src/embed.py data/sample/stu9_64.mp4
+python src/plots.py ssm stu9_64.mp4 # saves the video to figures/ssm_stu9_64.png
+```
+
+**Full dataset:** download [RepCount Part-A](https://svip-lab.github.io/dataset/RepCount_dataset.html) and place in to `data`. Extract it with `tar -xzf RepCount*.tar.gz` then run:
+```bash
+python src/preprocess.py
+python src/embed.py
+python src/plots.py tsne
+python src/plots.py ssm <video_name> # e.g. stu9_64.mp4
+```
 
 ## Implemented Methods
 
@@ -103,3 +122,6 @@ There are some strange things of note regarding the separations though. For exam
 ![Self-similarity matrix of a squat video](figures/ssm_stu9_64.png)
 <br>
 This heatmap compares every sampled frame of a 14-rep squat video (`stu9_64.mp4`) to every other frame. Yellow means similar, dark blue means different, and the white grids mark the labeled rep starts. We can see that a clean, repeating pattern is formed, lining up pretty closely with the white grid labels. This shows that the embeddings signify repetitions without even undergoing any training. In addition, for each rep, the pattern is symmetrical, showing that for a squat, going down looks like coming up in reverse. Overall, this is an ideal example of a ssm for a well-defined exercise. For the next part of the project, we will generate more ssm plots for other exercises and anticipate having to deal with many anomalies.
+
+### Attribution
+AI (Claude) was used to research appropriate methods for best visualizing pre-processed results as well as guide the author to understanding online code snippets so that he may write the code found in the repo effectively.
