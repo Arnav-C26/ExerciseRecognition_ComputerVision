@@ -82,7 +82,7 @@ We chose a pre-trained foundation model so that we could get useful features wit
 ## Results
 
 ### Class Distribution
-
+![Videos per exercise](figures/class_counts.png)
 After preprocessing, the 7 remaining exercises are fairly balanced. Each exercise has between 76 and 101 training videos and between 13 and 26 videos in each of the validation and test splits, so no single exercise is overrepresented. 
 
 ### Approach 1
@@ -92,11 +92,14 @@ TODO
 ### Approach 2
 
 ### **t-SNE of Video Embeddings**
-
+![t-SNE of DINOv2 video embeddings](figures/tsne.png)
+<br>
 Each point represents one video, and videos with similar embeddings naturally cluster near each other. Even without training, we can see that DINOv2 separates most of them into their own regions. Exercises with similar body positions have clusters that end up near each other (e.g push-ups and sit-ups, jump_jack and squat). 
 
 There are some strange things of note regarding the separations though. For example, squats are the most scattered, likely because they were filmed in many different places and because averaging all frames into one vector loses the up-and-down motion. For exercises like that, we’d need to think about how to deal with this phenomenon.
 
 ### **Self-Similarity Matrix (Squat)**
 
+![Self-similarity matrix of a squat video](figures/ssm_stu9_64.png)
+<br>
 This heatmap compares every sampled frame of a 14-rep squat video (`stu9_64.mp4`) to every other frame. Yellow means similar, dark blue means different, and the white grids mark the labeled rep starts. We can see that a clean, repeating pattern is formed, lining up pretty closely with the white grid labels. This shows that the embeddings signify repetitions without even undergoing any training. In addition, for each rep, the pattern is symmetrical, showing that for a squat, going down looks like coming up in reverse. Overall, this is an ideal example of a ssm for a well-defined exercise. For the next part of the project, we will generate more ssm plots for other exercises and anticipate having to deal with many anomalies.
