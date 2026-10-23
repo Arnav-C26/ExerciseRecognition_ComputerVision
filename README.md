@@ -47,3 +47,56 @@ Each sample is a video from a standard camera. There are no sensors used in the 
 
 ### Team Member Contributions/Involvement:
 Michael and Arnav contributed equally to the authorship of this section, meeting in person to both read the paper and brainstorm how to structure the contents of the section. The ideas represented from this section are collective thoughts from both Michael and Arnav.  Michael was responsible for the writing of this section.
+
+
+
+
+# Part 3: First Update
+
+## Implemented Methods
+
+### Dataset Preprocessing
+
+- We first read the RepCount Part-A annotation files (train, valid, test). Each row of the file lists the video name, its exercise type, its rep count, and the start and end frame of every repetition. We converted the frame labels into a list of (start, end) pairs, one per rep. For example, The first rep starts at L1 and ends at L2 for a total duration of that rep L2 - L1. Next, we had to deal with discrepancies regarding class naming. The dataset spells several exercises in more than one way (for example `pushups` and `push_up`, `benchpressing` and `bench_pressing`). In addition, it contains a typo (`squant` for `squat`). We mapped every variable spelling to a single, unified class name. In addition, we decided to remove the classes that are not typical gym exercises (`pommelhorse` and `others`), as well as videos with zero labeled reps. We also dropped `battle_rope`, which has only 16 videos and none in the test split, so it could not be evaluated. This left 886 videos across 7 different types of exercises.
+
+### Approach 1: MediaPipe Keypoints (Arnav)
+
+- TODO
+
+### Approach 2: Foundation Model Embeddings (Michael)
+
+- For Approach 2, we passed every sampled frame through Meta’s pre-trained DINOv2 model (`facebook/dinov2-small`), trained off of 142 million images. For each frame, we kept the model’s CLS token (classification token), which is a 384-number vector that summarizes the content of the whole frame. As a result, each video becomes a sequence of these vectors, one per sampled frame. For example, a 30-second video sampled at 10 frames per second yields 300 vectors. Next, to check whether these embeddings can tell exercises apart, we averaged each video’s frame embeddings into a single vector and used t-SNE to flatten the vectors’ dimensions and plot all of the videos into a 2D space, coloring each point by known exercise label. This lets us see whether videos of the same exercise group together, without training anything. Lastly, we computed a self-similarity matrix (SSM) for individual videos. To do this, we measured the cosine similarity between every pair of frame embeddings in a video and displayed the result as a heatmap. Because an exercise repeats the same movement over and over, the matching points of each rep should look alike, so the repetitions should show up as a repeating pattern in the heatmap.
+
+## Justification
+
+**Preprocessing:** Our project is about gym form feedback, so we only kept typical "gym" exercises. Cleaning up the class names was of course necessary because otherwise the same exercise would be split into several classes. We sampled frames at 10 fps because a body barely moves between neighboring frames, so keeping every frame is inefficient computationally and not very useful.
+
+### Approach 1
+
+TODO
+
+### Approach 2
+
+We chose a pre-trained foundation model so that we could get useful features without training anything ourselves. Because DINOv2 is trained on a large and varied set of images, we believe that it should be able to handle the differences in lighting, clothing, background, and other anomalies that were previously bought up.  We chose the smallest model because it seemed to be the best balance between have enough discriminatory power and respecting our laptop’s resources when it came to training. This also served as a sanity check to see whether a frozen foundation model holds exercise information at all before moving to a larger video model. Next, because the embeddings have 384 dimensions and can’t be plotted directly, we decided that t-SNE would be best for dimensionality reduction, flattening them into 2D, allowing us to visualize clusters that form naturally between exercise groups. Of course, this also gives us a simple way to see whether the embeddings separate exercises before even building a classifier. Finally, we used a self-similarity matrix because every exercise repeats the same movement, so frames from the same point in different reps should look alike. A ssm turns this into a visualizable repeating pattern. This is the same idea used in the research paper behind our dataset. We believe that the pre-classification exploration approaches listed in approach 2 support the fact that the dataset is suited well for classification.
+
+## Results
+
+### Class Distribution
+
+After preprocessing, the 7 remaining exercises are fairly balanced. Each exercise has between 76 and 101 training videos and between 13 and 26 videos in each of the validation and test splits, so no single exercise is overrepresented. 
+
+### Approach 1
+
+TODO
+
+### Approach 2
+
+### **t-SNE of Video Embeddings**
+
+Each point represents one video, and videos with similar embeddings naturally cluster near each other. Even without training, we can see that DINOv2 separates most of them into their own regions. Exercises with similar body positions have clusters that end up near each other (e.g push-ups and sit-ups, jump_jack and squat). 
+
+There are some strange things of note regarding the separations though. For example, squats are the most scattered, likely because they were filmed in many different places and because averaging all frames into one vector loses the up-and-down motion. For exercises like that, we’d need to think about how to deal with this phenomenon.
+
+### **Self-Similarity Matrix (Squat)**
+
+This heatmap compares every sampled frame of a 14-rep squat video (`stu9_64.mp4`) to every other frame. Yellow means similar, dark blue means different, and the white grids mark the labeled rep starts. We can see that a clean, repeating pattern is formed, lining up pretty closely with the white grid labels. This shows that the embeddings signify repetitions without even undergoing any training. In addition, for each rep, the pattern is symmetrical, showing that for a squat, going down looks like coming up in reverse. Overall, this is an ideal example of a ssm for a well-defined exercise. For the next part of the project, we will generate more ssm plots for other exercises and anticipate having to deal with many anomalies.
