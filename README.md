@@ -106,10 +106,10 @@ After preprocessing, the 7 remaining exercises are fairly balanced. Each exercis
 
 ### Approach 1
 
-### Skeleton Overlay (Squat)
+### MediaPipe Skeleton Overlay (Squat)
 ![Skeleton Overlay of Keypoints during a Squat Exercise](figures/skeleton_stu9_64.png)
 <br>
-
+In this visual, we see three reps of a squat exercise marked with keypoints of each joint in the body, along with lines that connect each keypoint together. For each rep, the subject's start and middle frame is depicted. The skeleton overlay visual shows us a few important things. First, the MediaPipe model accurately identifies the subject's joints and connects them together with lines. This is especially noticeable in the difference between each rep's start and middle images. Every line and keypoint, in every image, is clearly marked on the subject's body, rather than inaccurately being placed in the background. At the start of each rep, the skeleton depicts an upright stance with the subject's legs wide apart. In the middle of each rep, it shows the knees pointing outward, with the hips lower than before. Additionally, there are slight variations in the subject's form from rep to rep. For example, the elbows in the start of rep 1 are lower than in the start of rep 2. While each repetition of an exercise is bound to differ due to human variation, the MediaPipe model does an excellent job at accurately detecting these movements, allowing form analysis even when variation is present. While it can sometimes be challenging to interpret the location and joint angles between certain body parts (for example, the subject's hands and wrists), these overlaps do not affect the rest of the skeleton during the squat movement. This is an example of MediaPipe's effectiveness on a squat motion, depicted on a single video. The model's effectiveness at capturing other exercises and movements will be further assessed in the future phases of this project. 
 
 ### Approach 2
 
