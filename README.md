@@ -123,5 +123,7 @@ There are some strange things of note regarding the separations though. For exam
 <br>
 This heatmap compares every sampled frame of a 14-rep squat video (`stu9_64.mp4`) to every other frame. Yellow means similar, dark blue means different, and the white grids mark the labeled rep starts. We can see that a clean, repeating pattern is formed, lining up pretty closely with the white grid labels. This shows that the embeddings signify repetitions without even undergoing any training. In addition, for each rep, the pattern is symmetrical, showing that for a squat, going down looks like coming up in reverse. Overall, this is an ideal example of a ssm for a well-defined exercise. For the next part of the project, we will generate more ssm plots for other exercises and anticipate having to deal with many anomalies.
 
-### Attribution
+### Team Member Contribution/Involvement
+
+### AI Attribution
 AI (Claude) was used to research appropriate methods for best visualizing pre-processed results as well as guide the author to understanding online code snippets so that he may write the code found in the repo effectively.
