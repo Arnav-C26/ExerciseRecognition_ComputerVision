@@ -132,6 +132,11 @@ There are some strange things of note regarding the separations though. For exam
 This heatmap compares every sampled frame of a 14-rep squat video (`stu9_64.mp4`) to every other frame. Yellow means similar, dark blue means different, and the white grids mark the labeled rep starts. We can see that a clean, repeating pattern is formed, lining up pretty closely with the white grid labels. This shows that the embeddings signify repetitions without even undergoing any training. In addition, for each rep, the pattern is symmetrical, showing that for a squat, going down looks like coming up in reverse. Overall, this is an ideal example of a ssm for a well-defined exercise. For the next part of the project, we will generate more ssm plots for other exercises and anticipate having to deal with many anomalies.
 
 ### Team Member Contribution/Involvement
+Michael and Arnav both contributed to Part 3 of the semester project, explained below:
+
+- Michael: Implemented Approach 2 (Foundation Model Embeddings), Meta’s pre-trained DINOv2 model on the sample video of a person performing squats. Michael also produced charts and visuals that depict the effectiveness of the DINOv2 model on the sample video. Additionally, he did the dataset preprocessing, ensuring that both approaches are consistent in the preprocessing phase. Michael wrote a handful of the Part 3 report, including the portions pertaining to Approach 2 and Dataset Preprocessing.
+  
+- Arnav: Implemented the MediaPipe Pose Landmarker model on the sample video of a person performing squats. Later, Arnav produced charts that depict the effectiveness of the MediaPipe model on the sample video. Finally, Arnav helped write the Part 3 report, specifically focusing on the portions that pertain to Approach 1. 
 
 ### AI Attribution
-AI (Claude) was used to research appropriate methods for best visualizing pre-processed results as well as guide the author to understanding online code snippets so that he may write the code found in the repo effectively.
+AI (Claude and Gemini) was used to research appropriate methods for best visualizing pre-processed results as well as guide the author to understanding online code snippets so that he may write the code found in the repo effectively.
