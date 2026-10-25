@@ -106,7 +106,10 @@ After preprocessing, the 7 remaining exercises are fairly balanced. Each exercis
 
 ### Approach 1
 
-TODO
+### Skeleton Overlay (Squat)
+![Skeleton Overlay of Keypoints during a Squat Exercise](figures/skeleton_stu9_64.png)
+<br>
+
 
 ### Approach 2
 
