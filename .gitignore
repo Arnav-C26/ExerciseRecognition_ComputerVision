@@ -2,3 +2,6 @@ myvenv/
 data/LLSP/
 data/embeddings/
 *.npy
+data/keypoints/
+data/features/
+data/models/

@@ -57,6 +57,9 @@ def ssm_plot(name):
     plt.ylabel("frame")
     plt.savefig("figures/ssm_" + name.replace(".mp4", ".png"))
 
+if len(sys.argv) < 2:
+    print("Usage: `python src/plots.py tsne` or `python src/plots.py ssm <video>")
+    sys.exit()
 if sys.argv[1] == "tsne":
     tsne_plot()
 else:
